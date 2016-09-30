@@ -2,6 +2,7 @@
 "use strict";
 
 /* Classes */
+const debug = false;
 const Game = require('./game');
 
 /* Global variables */
@@ -24,8 +25,15 @@ console.log(board);
 
 canvas.onclick = function(event) {
   event.preventDefault();
+  currentX = event.offsetX;
+  currentY = event.offsetY;
   // TODO: determine which card was clicked on
   // TODO: determine what to do
+}
+
+canvas.oncontextmenu = function(event) {
+  event.preventDefault();
+  alert('foo');
 }
 
 /**
@@ -83,6 +91,17 @@ function render(elapsedTime, ctx) {
     }
   }
 
+  if(debug)
+  {
+     var x = currentIndex % 6;
+    var y = Math.floor(currentIndex / 6);
+    ctx.strokeStyle = "##ff0000";
+    ctx.beginPath();
+    ctx.arc(currentX, currentY, 3, 0, 2*Math.PI);
+    ctx.rect(x * 165 + 3, y * 165 + 3, 163, 163);
+    ctx.fill();
+  }
+ 
 }
 
 },{"./game":2}],2:[function(require,module,exports){
